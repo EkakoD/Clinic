@@ -3,10 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
+import { SearchPanelComponent } from './layout/content-layout/components/search-panel/search-panel.component';
+import { HeaderComponent } from './layout/content-layout/components/header/header.component';
+import { FooterComponent } from './layout/content-layout/components/footer/footer.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ContentLayoutComponent,
+    SearchPanelComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

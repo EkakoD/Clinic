@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+//import utilities
+@import "styles/utilities/_variables";
+@import "styles/utilities/_mixins";
+
+//import components
+@import "styles/components/_buttons";
+@import "styles/components/_calendar";
+@import "styles/components/_forms";
+@import "styles/components/_tables";

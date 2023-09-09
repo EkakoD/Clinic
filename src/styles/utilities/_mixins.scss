@@ -1,0 +1,21 @@
+@mixin media-brakepoint-min($brakepoint, $element, $root: true) {
+
+    $currentBrakePoint: map-get(( sm : 576px, md : 768px, lg : 992px, xl : 1200px, ), $brakepoint);
+
+    @if $currentBrakePoint != null {
+        @media (min-width: #{$currentBrakePoint}) {
+            @if $root {
+
+                @at-root #{$element} {
+                    @content;
+                }
+            }
+            @else {
+
+                #{$element} {
+                    @content;
+                }
+            }
+        }
+    }
+}

@@ -2,6 +2,16 @@
 @import "styles/utilities/_variables";
 @import "styles/utilities/_mixins";
 
+//import base
+@import "styles/base/_reset";
+// @import "styles/base/_fonts";
+@import "styles/base/_grids";
+@import "styles/base/_spacing";
+@import "styles/base/_flex";
+@import "styles/base/_display";
+@import "styles/base/_shadow";
+@import "styles/base/_typography";
+
 //import components
 @import "styles/components/_buttons";
 @import "styles/components/_calendar";

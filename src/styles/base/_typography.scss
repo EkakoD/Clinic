@@ -1,0 +1,54 @@
+@import '../utilities/variables';
+// alignment
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+// colors
+.text-white {
+  color: #fff !important;
+}
+
+// .text-primary {
+//   color: $primary-color;
+// }
+
+// .text-accent {
+//   color: $accent-color;
+// }
+
+// .text-secondary {
+//   color: $text-secondary;
+// }
+
+// .text-warn {
+//   color: $warn-color;
+// }
+
+// .text-success {
+//   color: $success-color;
+// }
+
+.text-bold {
+  font-weight: 900;
+}
+
+.font-size-20 {
+  font-size: 1.25rem;
+}
+
+.text-underline {
+  text-decoration: underline;
+}

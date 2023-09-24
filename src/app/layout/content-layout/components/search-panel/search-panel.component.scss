@@ -1,0 +1,23 @@
+@import "/src/styles/utilities/_variables";
+.search-panel {
+    background-color: $Clinic-gray;
+    // min-height: 120px;
+    .img-container {
+        background-color: $Clinic-white;
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span {
+            color: $text-color;
+            font-size: 18px;
+        }
+        img {
+            position: absolute;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+.mat-button-base {
+    font-size: 16px;
+    line-height: 20px;
+    background-color: $Clinic-light-blue !important;
+    color: $text-color !important;
+    border-radius: 25px !important;
+    height: 45px;
+
+    // accent button
+    &.accent {
+        border: 3px solid $accent-color;
+    }
+
+    // accent button
+    &.primary {
+        border: 3px solid $primary-color;
+        background-color: $Clinic-light-blue !important;
+    }
+}

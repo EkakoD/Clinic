@@ -7,6 +7,8 @@ import { ContentLayoutComponent } from './layout/content-layout/content-layout.c
 import { SearchPanelComponent } from './layout/content-layout/components/search-panel/search-panel.component';
 import { HeaderComponent } from './layout/content-layout/components/header/header.component';
 import { FooterComponent } from './layout/content-layout/components/footer/footer.component';
+import { SharedModule } from './shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { FooterComponent } from './layout/content-layout/components/footer/foote
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -17,3 +17,7 @@
         background-color: $Clinic-light-blue !important;
     }
 }
+
+.mat-raised-button:not([class*=mat-elevation-z]){
+    box-shadow: none;
+}

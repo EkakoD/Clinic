@@ -21,3 +21,17 @@
         }
     }
 }
+.search-img-container {
+    width: 47px;
+    height: 47px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary-color;
+    img {
+        position: absolute;
+    }
+}

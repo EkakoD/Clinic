@@ -1,4 +1,14 @@
 <app-banner></app-banner>
-<div class="d-flex justify-content-center py-5">
-  <app-categories></app-categories>
+<div class="col-12 d-flex justify-content-center w-100 p-5">
+  <!-- <div class="col-12"> -->
+  <div class="col-3 pr-4">
+    <app-categories></app-categories>
+  </div>
+  <div class="col-9">
+    <div class="row">
+      <app-doctor-card *ngFor="let doctor of doctors" [doctor]="doctor" class="col-4">
+      </app-doctor-card>
+    </div>
+  </div>
+  <!-- </div> -->
 </div>

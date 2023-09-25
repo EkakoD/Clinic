@@ -5,11 +5,14 @@ import { HomeRoutingModule } from './home-routing.module';
 import { BannerComponent } from './page/home/banner/banner.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CategoriesService } from 'src/app/core/service/categories/categories.service';
+import { DoctorCardComponent } from './page/home/doctor-card/doctor-card.component';
+import { UsersService } from 'src/app/core/service/users/users.service';
 
 @NgModule({
     declarations: [
         HomeComponent,
-        BannerComponent
+        BannerComponent,
+        DoctorCardComponent
     ],
     imports: [
         CommonModule,
@@ -19,6 +22,7 @@ import { CategoriesService } from 'src/app/core/service/categories/categories.se
     exports: [],
     providers: [
         CategoriesService,
+        UsersService
     ]
 })
 

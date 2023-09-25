@@ -7,6 +7,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 
 
 const modules = [
@@ -18,6 +19,7 @@ const modules = [
     MatSnackBarModule,
     MatTabsModule,
     MatDialogModule,
+    MatCardModule,
 ];
 
 @NgModule({

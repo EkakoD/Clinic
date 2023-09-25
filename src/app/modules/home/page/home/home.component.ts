@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { finalize } from 'rxjs';
 import { CategoriesService } from 'src/app/core/service/categories/categories.service';
+import { UsersService } from 'src/app/core/service/users/users.service';
+import { DoctorsModel } from 'src/app/shared/model/users/users.model';
 
 @Component({
   selector: 'app-home',
@@ -7,15 +10,26 @@ import { CategoriesService } from 'src/app/core/service/categories/categories.se
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
+  doctors: DoctorsModel[];
+  catgeoryId: number;
+  loadingFlag = false;
   constructor(
-    // private categoriesService: CategoriesService
+    private usersService: UsersService
   ) { }
 
   ngOnInit() {
-    // this.categoriesService.getCategories().subscribe(res => {
-    //   console.log(res);
-    // })
+    this.getDoctors();
   }
 
+  getDoctors() {
+    this.loadingFlag = true; // Todo: html-ში loader დავადო
+    this.usersService.getDoctors(this.catgeoryId).pipe(
+      finalize(() => this.loadingFlag = false)
+    ).subscribe(res => {
+      this.doctors = res.data;
+      console.log(this.doctors)
+    });
+
+
+  }
 }

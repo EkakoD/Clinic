@@ -1,0 +1,23 @@
+<div class="navigation-container">
+  <div class="navigation-title">კატეგორიები</div>
+  <hr class="line" />
+  <ul class="category-list">
+    <li *ngFor="let category of categories" class="category-item d-flex justify-content-between"
+      [ngClass]="{'active': selectedCategory?.name == category.name }" (click)="selectCategory(category)">
+      <!-- ({{category.doctorsQuantity}}) -->
+      <span class="doctor-quantity">( {{category.id}} )</span>
+      {{category.name}}
+      <span [class.arrow]="selectedCategory?.name != category.name"
+        [ngClass]="selectedCategory?.name == category.name ? 'active-arrow':'arrow'">
+        <img src="assets/images/arrow-right.png" alt="arrow-right">
+      </span>
+    </li>
+  </ul>
+  <hr class="line" />
+  <div class="navigation-footer">
+    სრულად ნახვა
+    <span>
+      <img src="assets/images/arrow-down.png" alt="arrow-down" class="">
+    </span>
+  </div>
+</div>

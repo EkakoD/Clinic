@@ -1,0 +1,26 @@
+@import "src/styles/utilities/_variables";
+
+::ng-deep {
+  .snackbar {
+    min-height: auto !important;
+    line-height: normal;
+    color: #f4f4f4;
+    font-size: 0.95rem;
+
+    .inner {
+      overflow: hidden;
+    }
+
+    i {
+      font-size: 24px;
+    }
+  }
+
+  .error-snackbar {
+    background: lighten($warn-color, 10%) !important;
+  }
+
+  .success-snackbar {
+    background: lighten($success-color, 10%) !important;
+  }
+}

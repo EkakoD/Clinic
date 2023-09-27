@@ -8,3 +8,4 @@ export class DoctorsModel {
         public review: number
     ) { }
 }
+

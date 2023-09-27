@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { AuthUtilitiesService } from '../service/auth/auth-utilities.service';
 import { AuthService } from '../service/auth/auth.service';
 
 @Injectable()
@@ -8,19 +7,17 @@ import { AuthService } from '../service/auth/auth.service';
 export class NoAuthGuard implements CanActivate {
 
   constructor(
-    private authUtilitiesService: AuthUtilitiesService,
     private authService: AuthService,
     private router: Router
   ) { }
 
   canActivate(): boolean {
 
-    if ( true
-        // this.authService.isLoggedIn() ToDo
-        ) {
+    if (this.authService.isLoggedIn()) {
       this.router.navigate(['/home']);
       return false;
     }
+
     return true;
 
   }

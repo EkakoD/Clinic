@@ -1,0 +1,59 @@
+@import "/src/styles/utilities/_variables";
+
+.title {
+    color: $accent-color;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: left;
+}
+.input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.label {
+    color: $text-color;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+:host ::ng-deep {
+    .mat-form-field-appearance-outline .mat-form-field-outline {
+        color: $Clinic-gray !important;
+    }
+    .mat-form-field-appearance-outline.mat-focused:not(.mat-form-field-invalid) .mat-form-field-outline-thick {
+        color: rgba(24, 164, 225, 0.3) !important;
+    }
+    input::placeholder {
+        color: rgba(5, 51, 84, 0.3);
+        font-size: 14px;
+    }
+    .register-btn {
+        padding: 0px 30px !important;
+        background-color: $primary-color !important;
+        color: $Clinic-white !important;
+    }
+    .register-btn:disabled {
+        opacity: 0.3;
+    }
+    mat-error {
+        margin-top: 15px;
+        margin-left: 12px;
+    }
+}
+.upload-img {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: -5px;
+    cursor: pointer;
+}
+
+.validate-time {
+    color: rgba(5, 51, 84, 0.3);
+    font-size: 16px;
+}

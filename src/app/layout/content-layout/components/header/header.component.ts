@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/core/component/dialog/dialog.component';
+import { AuthService } from 'src/app/core/service/auth/auth.service';
+import { LoginModalComponent } from 'src/app/modules/auth/login-modal/login-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -39,9 +43,55 @@ export class HeaderComponent implements OnInit {
     }
 
   ];
-  constructor() { }
+  user: { firstname: string, lastname: string };
+  constructor(
+    private dialog: MatDialog,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
+    this.getUserDetails();
+  }
+
+  openLoginModal() {
+    const dialogRef = this.dialog.open(LoginModalComponent, {
+      panelClass: ['container'],
+      maxWidth: '700px',
+      maxHeight: '90vh',
+      disableClose: false,
+      autoFocus: false
+    })
+
+    // dialogRef.afterClosed().subscribe(() =>
+
+    // )
+  }
+  getUserDetails() {
+    var id = localStorage.getItem("id");
+    if (id) {
+
+      this.authService.getUserDetails(id).subscribe(
+        res => {
+          this.user = {
+            firstname: res.data.firstname,
+            lastname: res.data.lastname
+          }
+
+        }
+      )
+    }
+  }
+
+  logoutUser() {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: { msg: 'ნამდვილად გსურთ სისტემიდან გასვლა?' }
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res === 'true') {
+        this.authService.logOut();
+      }
+    });
   }
 
 }

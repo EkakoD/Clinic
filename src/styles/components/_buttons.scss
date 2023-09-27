@@ -21,3 +21,18 @@
 .mat-raised-button:not([class*=mat-elevation-z]){
     box-shadow: none;
 }
+
+// button spinner
+.spinner-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    background: rgba(#f4f4f4, 0.7);
+  }

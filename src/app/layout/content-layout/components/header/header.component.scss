@@ -13,47 +13,29 @@
     .auth-btn {
         color: $accent-color;
     }
+    .register {
+        text-decoration: none;
+        color: $text-color;
+    }
+  
 }
 
-// .navbar {
-//     background: #fff;
-//     position: fixed;
-//     right: 0;
-//     left: 0;
-//     z-index: 999;
-// }
 ::ng-deep {
     nav {
         .mat-ripple {
             display: none !important;
         }
         .mat-tab-link {
-            padding: 12px 24px; /* Adjust padding as needed */
-            font-size: 16px; /* Adjust font size as needed */
-            text-transform: uppercase; /* Optional: Uppercase text */
-            color: #333; /* Tab text color */
-            border-bottom: 2px solid transparent; /* Initial border color (transparent) */
-          }
-          
-          /* Style the active tab link and add the bottom border */
-          .mat-tab-link-active {
-            color: #007bff; /* Active tab text color */
-            border-bottom-color: #007bff; /* Border color for active tab */
-          }
-        // .mat-tab-link {
-        //     min-width: 100px !important;
-        //     font-size: 16px;
-        //     // height: 70px;
-        //     opacity: 1;
-        //     padding: 0 10px;
-        //     .nav-item-text {
-        //         color: #000000;
-        //     }
-        // }
-        // .mat-ink-bar {
-        //     color: $primary-color;
-        //     width: 0;
-        //     height: 0;
-        // }
+            padding: 12px 24px;
+            font-size: 16px;
+            text-transform: uppercase;
+            color: #333;
+            border-bottom: 2px solid transparent;
+        }
+
+        .mat-tab-link-active {
+            color: $text-color;
+            // border-bottom-color: #007bff;
+        }
     }
 }

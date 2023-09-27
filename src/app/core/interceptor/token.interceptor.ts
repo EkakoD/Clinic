@@ -19,7 +19,7 @@ export class TokenInterceptorService implements HttpInterceptor {
 
             const tokenizedReq = req.clone({
                 setHeaders: {
-                    Authorization: `Bearer ${this.webStorage.get('token')}`,
+                    Authorization: `${this.webStorage.get('token')}`,
                 }
             });
 

@@ -10,6 +10,8 @@ import { FooterComponent } from './layout/content-layout/components/footer/foote
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
+import { LoginModalComponent } from './modules/auth/login-modal/login-modal.component';
+import { ResetPasswordModalComponent } from './modules/auth/reset-password-modal/reset-password-modal.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { CoreModule } from './core/core.module';
     ContentLayoutComponent,
     SearchPanelComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LoginModalComponent,
+    ResetPasswordModalComponent
   ],
   imports: [
     BrowserModule,

@@ -24,9 +24,21 @@
     </div>
     <div class="col-12 col-sm-6 col-lg-3">
       <div class="d-flex">
-        <button mat-raised-button class="mr-2">
-          <a class="auth-btn">ავტორიზაცია</a> / <a>რეგისტრაცია</a>
+        <button mat-raised-button class="mr-2" *ngIf="!user else avatar">
+          <span class="auth-btn" (click)="openLoginModal()">ავტორიზაცია</span> / <a class="register"
+            routerLink="register/client">რეგისტრაცია</a>
         </button>
+        <ng-template #avatar>
+          <button mat-raised-button class="mr-2" [matMenuTriggerFor]="userMenu">
+            {{user.firstname}} {{user.lastname}}
+          </button>
+          <mat-menu #userMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="logoutUser()">
+              <i class="far fa-sign-out mr-1"></i> <span> გასვლა</span>
+            </button>
+
+          </mat-menu>
+        </ng-template>
         <button mat-raised-button>
           ENG
         </button>

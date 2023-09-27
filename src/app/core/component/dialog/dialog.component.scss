@@ -1,0 +1,11 @@
+@import "src/styles/utilities/_variables";
+
+.accept-button {
+    background: lighten($warn-color, 5%) !important;
+    color: #fff !important;
+}
+
+.dismiss-button {
+    background: lighten($primary-color, 10%) !important;
+    color: #fff !important;
+}

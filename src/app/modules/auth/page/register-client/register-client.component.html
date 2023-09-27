@@ -1,0 +1,72 @@
+<div class="p-5">
+  <div class="title my-4">რეგისტრაცია</div>
+  <div class="d-flex row">
+    <div class="col-12">
+      <form [formGroup]="registrationForm">
+        <div class="row">
+          <div class="col-12 col-md-6 col-xl-4 my-3">
+            <mat-label class="label pl-4">სახელი</mat-label>
+            <mat-form-field appearance="outline" class="mt-1">
+              <input matInput type="text" formControlName="firstname" placeholder="( მინიმუმ 5 სიმბოლო )" />
+              <!-- <mat-error>სავალდებული ველი</mat-error> -->
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-md-6 col-xl-4  my-3">
+            <mat-label class="pl-4">ელ-ფოსტა</mat-label>
+            <mat-form-field appearance="outline" class="mt-1">
+              <input matInput type="text" formControlName="email" />
+              <img src="assets/images/email.png" class="email-img" (click)="sendActivateCode()">
+              <!-- <mat-error>სავალდებული ველი</mat-error> -->
+              <span class="spinner-container" *ngIf="sendCodeLoadingFlag">
+                <mat-spinner diameter="24"></mat-spinner>
+              </span>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-md-6 col-xl-4  my-3">
+            <mat-label class="pl-4">პირადი ნომერი</mat-label>
+            <mat-form-field appearance="outline" class="mt-1">
+              <input matInput type="text" formControlName="personalNumber" placeholder="00000000000" />
+              <!-- <mat-error>სავალდებული ველი</mat-error> -->
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-md-6 col-xl-4  my-3">
+            <mat-label class="pl-4">გვარი</mat-label>
+            <mat-form-field appearance="outline" class="mt-1">
+              <input matInput type="text" formControlName="lastname" />
+              <!-- <mat-error>სავალდებული ველი</mat-error> -->
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-md-6 col-xl-4  my-3">
+            <mat-label class="px-4 d-flex justify-content-between">
+              <span>აქტივაციის კოდი</span>
+              <span class="validate-time">ვადა 30 წუთი</span>
+            </mat-label>
+            <mat-form-field appearance="outline" class="mt-1">
+              <input matInput type="text" formControlName="activateCode" />
+              <!-- <mat-error>სავალდებული ველი</mat-error> -->
+              <!-- <mat-error *ngIf="errMessage">{{ errMessage }}</mat-error> -->
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-md-6 col-xl-4  my-3">
+            <mat-label class="pl-4">პაროლი</mat-label>
+            <mat-form-field appearance="outline" class="mt-1">
+              <input matInput type="password" formControlName="password" placeholder="( მინიმუმ 8 სიმბოლო : @ 7 , )" />
+              <!-- <mat-error>სავალდებული ველი</mat-error> -->
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-12 d-flex justify-content-end align-items-center px-0">
+          <div class="text-right mt-4">
+            <div class="d-inline-block">
+              <button mat-raised-button class="register-btn" (click)="submit()" [disabled]="isFormValid()">
+                <div class="spinner-container" *ngIf="submitLoadingFlag">
+                  <mat-spinner diameter="24"></mat-spinner>
+                </div> რეგისტრაცია
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

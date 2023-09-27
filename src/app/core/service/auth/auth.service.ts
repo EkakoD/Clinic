@@ -90,7 +90,7 @@ export class AuthService {
   logOut() {
     localStorage.clear();
     this.authEvent$.next(false);
-    this.router.navigate(['/auth/signin']);
+    this.router.navigate(['/home']);
 
   }
 }

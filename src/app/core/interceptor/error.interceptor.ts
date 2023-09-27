@@ -25,7 +25,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
         if (err.status === 401) {
 
             // logout
-            // this.authService.logout(); Todo
+            this.authService.logOut(); 
 
         } else if (err.status === 403 || err.status === 405) {
 
@@ -38,7 +38,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
                 panelClass: ['snackbar', 'error-snackbar']
             });
 
-            this.router.navigate(['/auth/login']);
+            this.router.navigate(['/home']);
 
         } else if (err.status === 404) {
 

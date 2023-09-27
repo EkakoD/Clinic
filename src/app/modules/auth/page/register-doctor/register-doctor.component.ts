@@ -6,7 +6,7 @@ import { finalize } from 'rxjs';
 import { InfoSnackBarComponent } from 'src/app/core/component/info-snack-bar/info-snack-bar.component';
 import { AuthService } from 'src/app/core/service/auth/auth.service';
 import { CategoriesService } from 'src/app/core/service/categories/categories.service';
-import { RegisterDoctorModel, UploadFileModel } from 'src/app/shared/model/auth/auth.model';
+import { LoginModel, RegisterDoctorModel, UploadFileModel } from 'src/app/shared/model/auth/auth.model';
 import { CategoriesModel } from 'src/app/shared/model/categories/catgeories.model';
 
 @Component({
@@ -135,10 +135,17 @@ export class RegisterDoctorComponent implements OnInit {
       this.authService.registerDoctor(model).pipe(
         finalize(() => this.submitLoadingFlag = false)
       ).subscribe(res => {
-        console.log(res);
         if (res.success) {
-          //Todo: რომ დარეგისტრირდება უნდა შელოგინდეს თან და გადავიდეს ჰოუმზე
           this.snackbarAdapter('მოქმედება წარმატებით შესრულდა', true);
+
+          const loginModel: LoginModel = {
+            email: model.email,
+            password: model.password
+          }
+          this.authService.signIn(model).subscribe(
+            res => {
+              this.router.navigate(['/home']);
+            });
         }
       });
     }

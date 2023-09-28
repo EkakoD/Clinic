@@ -17,18 +17,17 @@
   <div class="doctor-name my-1">
     {{ doctor.firstname }} {{ doctor.lastname }}
   </div>
-  <div class="category mt-1">
+  <div class="category mt-1 ">
     {{ doctor.category }}
   </div>
 
-  <div class="review-stars d-flex justify-content-center mb-2" *ngIf="doctor.review > 0">
+  <div class="review-stars d-flex justify-content-center" *ngIf="doctor.review > 0">
     <img *ngFor="let item of [].constructor(doctor.review); let i = index" src="assets/images/star.png" alt="star-img"
       class="my-2">
-    <!-- <img src="assets/images/star.png" class=" my-2"> -->
-
   </div>
 
-  <button mat-raised-button class="make-appointment-button d-flex flex-perfect-center mb-3">
+  <button mat-raised-button (click)="navigateToDetail(doctor.id)"
+    class="make-appointment-button d-flex flex-perfect-center my-3 ">
     მიღებაზე ჩაწერა
     <span>
       <img src="assets/images/arrow-right.png" alt="arrow-right" />

@@ -5,7 +5,7 @@
     <li *ngFor="let category of categories" class="category-item d-flex justify-content-between"
       [ngClass]="{'active': selectedCategory?.name == category.name }" (click)="selectCategory(category)">
       <!-- ({{category.doctorsQuantity}}) -->
-      <span class="doctor-quantity">( {{category.id}} )</span>
+      <span class="doctor-quantity">( {{category.userCount}} )</span>
       {{category.name}}
       <span [class.arrow]="selectedCategory?.name != category.name"
         [ngClass]="selectedCategory?.name == category.name ? 'active-arrow':'arrow'">

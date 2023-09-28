@@ -3,7 +3,9 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { CategoriesModel } from 'src/app/shared/model/categories/catgeories.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 
 export class CategoriesService {
   env = environment;

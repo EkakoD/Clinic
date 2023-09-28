@@ -1,0 +1,45 @@
+<mat-card class="user-card" *ngIf="user">
+
+  <div class="user-image mt-5">
+    <img [src]="user.imageUrl" alt="user-img" />
+  </div>
+
+
+  <div class="accent mt-4">
+    {{ user.firstname }} {{ user.lastname }}
+  </div>
+
+  <div class="mt-4" *ngIf="user.roleName== 'Doctor'">
+    <div class="ft-size-12 text-color">ექიმი</div>
+    <div class="grey">{{user.categoryName}}</div>
+    <div class="review-stars d-flex justify-content-center" *ngIf="user.review > 0">
+      <img *ngFor="let item of [].constructor(user.review); let i = index" src="assets/images/star.png" alt="star-img"
+        class="mt-2">
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <div class="text-color">პირადი ნომერი :</div>
+    <div class="grey mt-2">{{ user.personalNumber }}</div>
+  </div>
+
+
+  <div class="mt-4">
+    <div class="text-color">ელ-ფოსტა :</div>
+    <div class="grey mt-2">{{ user.email }}</div>
+  </div>
+
+
+  <div class="mt-4">
+    <div class="text-color">პაროლის შეცვლა</div>
+  </div>
+
+
+  <div class="mt-4">
+    <div *ngIf="user.roleName=='Doctor'" class="text-color">დაჯავშნილია :</div>
+    <div *ngIf="user.roleName=='User'" class="text-color">ჩემი ჯავშანი :</div>
+    <div class="grey mt-2">( {{ user.appointmentCount }} )</div>
+
+  </div>
+
+</mat-card>

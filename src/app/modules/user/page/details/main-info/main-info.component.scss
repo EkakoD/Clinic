@@ -1,0 +1,58 @@
+@import "/src/styles/utilities/_variables";
+
+.user-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 370px;
+    height: 800px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    box-shadow: 0px 4px 50px 0px rgba(5, 51, 84, 0.05);
+
+    .text-color {
+        color: $text-color;
+    }
+
+    .grey {
+        color: rgba(5, 51, 84, 0.3);
+    }
+    .accent {
+        color: $accent-color;
+    }
+    .ft-size-12 {
+        font-size: 12px;
+    }
+
+    .user-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 16px 0;
+        img {
+            border-radius: 50%;
+            width: 157px;
+            height: 157px;
+        }
+    }
+
+    .name {
+        color: $text-color;
+        font-size: 18px;
+    }
+    .category {
+        color: $text-color;
+        opacity: 0.3;
+        font-size: 16px;
+    }
+    .review-stars {
+        img {
+            width: 24px;
+            height: 24px;
+        }
+    }
+}

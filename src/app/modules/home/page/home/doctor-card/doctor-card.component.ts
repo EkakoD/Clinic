@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DoctorsModel } from 'src/app/shared/model/users/users.model';
 
 @Component({
@@ -8,10 +9,15 @@ import { DoctorsModel } from 'src/app/shared/model/users/users.model';
 })
 export class DoctorCardComponent implements OnInit {
   @Input() doctor: DoctorsModel;
-  
-  constructor() { }
+
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit() {
+  }
+  navigateToDetail(id) {
+    this.router.navigate(['/user/details/' + id])
   }
 
 }

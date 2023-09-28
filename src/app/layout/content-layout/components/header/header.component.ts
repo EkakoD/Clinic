@@ -59,7 +59,6 @@ export class HeaderComponent implements OnInit {
       }
       else {
         this.user = null;
-        console.log(this.user)
       }
     })
   }

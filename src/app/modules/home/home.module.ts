@@ -7,12 +7,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CategoriesService } from 'src/app/core/service/categories/categories.service';
 import { DoctorCardComponent } from './page/home/doctor-card/doctor-card.component';
 import { UsersService } from 'src/app/core/service/users/users.service';
+import { DoctorComponent } from './page/doctor/doctor.component';
 
 @NgModule({
     declarations: [
         HomeComponent,
         BannerComponent,
-        DoctorCardComponent
+        DoctorCardComponent,
+        DoctorComponent
     ],
     imports: [
         CommonModule,

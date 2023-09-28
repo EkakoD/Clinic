@@ -7,7 +7,8 @@ import { Subject, finalize } from 'rxjs';
 import { InfoSnackBarComponent } from 'src/app/core/component/info-snack-bar/info-snack-bar.component';
 import { AppointmentsService } from 'src/app/core/service/appointments/appointments.service';
 import { environment } from 'src/environments/environment';
-import { AppointmentTimesModel } from '../../model/appointment/appointment.model';
+import { AppointmentTimesModel, CreateAppointmentModel } from '../../model/appointment/appointment.model';
+import { MakeAppointmentModalComponent } from './make-appointment-modal/make-appointment-modal.component';
 
 @Component({
   selector: 'app-time-table',
@@ -49,7 +50,8 @@ export class TimeTableComponent implements OnInit {
   months = ['იანვარი', 'თებერვალი', 'მარტი', 'აპრილი', 'მაისი', 'ივნისი', 'ივლისი', 'აგვისტო', 'სექტემბერი', 'ოქტომბერი', 'ნოემბერი', 'დეკემბერი']
   id: number;
   userRole: string;
-
+  doctorId: number;
+  patientId: number = null;
   timeList = [];
   timeLists = [];
   calendarHeight = 0;
@@ -63,7 +65,7 @@ export class TimeTableComponent implements OnInit {
   toolbarMenu: any;
 
 
-
+  submitLoadingFlag = false
   loadingFlag = 0;
   firstLoad = true;
 
@@ -77,14 +79,18 @@ export class TimeTableComponent implements OnInit {
   constructor(
     private cdRef: ChangeDetectorRef,
     // private router: Router,
-    // public dateUtilitiesService: DateUtilitiesService, არ ვიცი ზუსტად მინდა თუ არა
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     private appointmentsService: AppointmentsService,
     private route: ActivatedRoute
   ) {
-    this.id = parseFloat(this.route.snapshot.paramMap.get('id'));
     this.userRole = localStorage.getItem("role");
+    if (this.userRole == 'User') {
+      this.doctorId = parseFloat(this.route.snapshot.paramMap.get('id'));
+      this.patientId = parseFloat(localStorage.getItem("id"));
+    }
+    this.id = parseFloat(localStorage.getItem("id"));
+
     this.calendarDate.setHours(0, 0, 0, 0);
     this.currentMonth = this.months[this.calendarDate.getMonth()];
     this.currentYear = this.calendarDate.getFullYear();
@@ -98,11 +104,6 @@ export class TimeTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    var start = this.calendarDate;
-    // const end = new Date(this.range.value.end).getDate();
-    // draw calendar
-    console.log(this.id, this.userRole);
-    console.log(this.timeLists)
     this.timeLists = this.getDatesInRange(this.range.value.start, this.range.value.end);
 
   }
@@ -123,7 +124,8 @@ export class TimeTableComponent implements OnInit {
       dates.push(
         {
           date: start.getDate(),
-          day: this.days[start.getDay()]
+          day: this.days[start.getDay()],
+          fullDate: start
         }
       );
       start = new Date(start.getTime() + 1000 * 60 * 60 * 24);
@@ -149,7 +151,7 @@ export class TimeTableComponent implements OnInit {
     const start = this.dateToString(this.range.value.start);
     const end = this.dateToString(this.range.value.end);
     this.loadingFlag++;
-    this.appointmentsService.getAppointmentForCalendar(start, end, null,)
+    this.appointmentsService.getAppointmentForCalendar(start, end, this.patientId, this.doctorId)
       .pipe(
         finalize(() => this.loadingFlag--))
       .subscribe(res => {
@@ -170,7 +172,7 @@ export class TimeTableComponent implements OnInit {
     this.range.get('start').setValue(new Date(this.currentYear, index + 1, startDate.getDate()));
     this.range.get('end').setValue(new Date(this.currentYear, index + 1, startDate.getDate()).getTime() + 1000 * 60 * 60 * 24 * 7)
     this.timeLists = this.getDatesInRange(this.range.value.start, this.range.value.end);
-
+    console.log(this.timeLists);
     this.getCalendar();
 
   }
@@ -215,7 +217,43 @@ export class TimeTableComponent implements OnInit {
     this.getCalendar();
   }
 
+  makeAppoitment(item, time) {
+    const dialogRef = this.dialog.open(MakeAppointmentModalComponent, {
+      panelClass: ['container'],
+      maxWidth: '400px',
+      maxHeight: '90vh',
+      disableClose: false,
+      autoFocus: false,
 
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+
+      if (res.result) {
+        const comment = res.comment;
+        const appointmentModel: CreateAppointmentModel = {
+          clientId: this.patientId,
+          doctorId: this.doctorId,
+          timeId: item.id,
+          date: this.dateToString(time.fullDate),
+          comment: comment
+        };
+        this.submitLoadingFlag = true;
+        this.appointmentsService.createAppointment(appointmentModel).pipe(
+          finalize(() => this.submitLoadingFlag = false)).subscribe(
+            res => {
+              if (res.success) {
+                this.snackbarAdapter('მოქმედება წარმატებით შესრულდა', true);
+                this.getCalendar();
+              }
+            }
+          )
+      }
+
+    });
+
+
+  }
   // draw  and get calendar on date change
   filterByDate(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
     if (dateRangeEnd.value) {

@@ -18,7 +18,7 @@ export class AppointmentModel {
 
 export class CreateAppointmentModel {
     constructor(
-        public patientId: number,
+        public clientId: number,
         public doctorId: number,
         public timeId: number,
         public date: string,

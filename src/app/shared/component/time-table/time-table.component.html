@@ -45,11 +45,11 @@
 
     </div>
     <div class="time-display p-1" #timeDisplay *ngFor="let time of timeLists">
-     <span class="accent"> {{ time.date }}</span>( {{ time.day}} )
+      <span class="accent"> {{ time.date }}</span>( {{ time.day}} )
     </div>
   </div>
 
-  <div class="bottom-pannel d-flex pb-5" [class.no-appointment]="appointmentTimes.length <= 0">
+  <div class="bottom-pannel d-flex pb-5 align-items-center" [class.no-appointment]=" appointmentTimes.length <=0">
     <div class="appointments d-flex flex-column align-items-center">
       <ng-container *ngIf="appointmentTimes.length >= 1">
 
@@ -69,50 +69,41 @@
       </ng-container>
     </div>
 
-    <div class="bottom-pannel-layer d-flex" #BottomPannelLayer [class.d-none]="appointments.length <= 0">
+    <div class="bottom-pannel-layer d-flex" #BottomPannelLayer *ngIf="appointments && appointments.length >= 1">
       <!--  [scrollTop]="scrollTopPostion" -->
 
       <!-- <div>
       <div class="d-flex" style="position: relative;"> -->
-      <div class="bottom-pannel-rside light-scroll" #calendarWrapper (scroll)="calendarScrollX($event, calendarWrapper)"
-        *ngIf="appointments && appointments.length >= 1">
+      <div class="bottom-pannel-rside light-scroll" #calendarWrapper
+        (scroll)="calendarScrollX($event, calendarWrapper)">
 
 
         <div class="rside-slice" #scheduleColumnWrapper>
 
-          <ng-container *ngFor="let appointment of appointments; let index = index;">
-            <div class="appointment-height d-flex" *ngFor="let item of appointmentTimes; trackBy:trackByTimeId;">
-              <div *ngFor="let time of timeLists; trackBy:trackByTimeId;">
-                <div class="d-flex h-100 w-100">
+          <!-- <ng-container *ngFor="let appointment of appointments; let index = index;"> -->
+          <div class="appointment-height d-flex" *ngFor="let item of appointmentTimes; trackBy:trackByTimeId;">
+            <div *ngFor="let time of timeLists; trackBy:trackByTimeId;">
+              <div class="d-flex h-100 w-100">
 
-                  <div class="time-item">
-                    <div class="time-viewer h-100 p-1">
-                      <!-- {{ item }}-->
-                    </div>
+                <div class="time-item" (click)="makeAppoitment(item,time)">
+                  <div class="time-viewer h-100 p-1">
                   </div>
                 </div>
               </div>
-              <ng-container *ngIf="appointment.length!==0">
-                <!-- appointments & blocked time -->
-                <ng-container *ngFor="let appointmentItem of appointments; trackBy:trackByAppointmentId;">
-
-                  <div class="d-flex flex-perfect-center booked"
-                    [appAppointmentPosition]="[appointment.timeId,appointmentItem.date]">
-                    <!-- [appAppointmentPosition]="[appointment.re turnDate,appointment.pickupDate,appointment.pickupDate.split('T')[1],appointment.returnDate.split('T')[1],calendarHeight,scheduleColumnWidth,appointment.overlapCount,index, range.value.start,range.value.end]" -->
-                    დაჯავშნილია
-                    <!-- აქ პირობა უნდა დავადო ექიმისა და კლიენტის მიხედვით რა ტექსტი გამოჩნდეს -->
-                    <!-- <b>{{appointment.costumer}}</b>
-                    <div>{{ appointment.pickupDate | date : 'dd/MM/YYYY HH:mm'}} -
-                      {{ appointment.returnDate | date : 'dd/MM/YYYY HH:mm'}}</div> -->
-
-
-                  </div>
-                  <!-- </div> -->
-
-                </ng-container>
-              </ng-container>
             </div>
-          </ng-container>
+            <ng-container *ngIf="appointments.length!==0">
+              <ng-container *ngFor="let appointmentItem of appointments; trackBy:trackByAppointmentId;">
+
+                <div class="d-flex flex-perfect-center booked"
+                  [appAppointmentPosition]="[appointmentItem.timeId,appointmentItem.date,timeLists[0].fullDate]">
+                  დაჯავშნილია
+
+                </div>
+
+              </ng-container>
+            </ng-container>
+          </div>
+          <!-- </ng-container> -->
         </div>
       </div>
     </div>
@@ -120,23 +111,33 @@
     <!-- </div>
   </div> -->
 
-    <div class="p-4 d-flex justify-content-center align-items-center h-100" *ngIf="appointments.length <= 0">
+    <div class="w-100 h-100 d-flex justify-content-center align-items-center h-100" *ngIf="appointments.length <= 0">
 
-      <div class="d-flex text-center staff-member-warning" *ngIf="!loadingFlag">
+      <div class="rside-slice">
+
+        <!-- <ng-container *ngFor="let appointment of appointments; let index = index;"> -->
+        <div class="appointment-height d-flex" *ngFor="let item of appointmentTimes; trackBy:trackByTimeId;">
+          <div *ngFor="let time of timeLists; trackBy:trackByTimeId;">
+            <div class="d-flex h-100 w-100">
+
+              <div class="time-item" (click)="makeAppoitment(item,time)">
+                <div class="time-viewer h-100 p-1">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- </ng-container> -->
+      </div>
+      <!-- <div class="d-flex text-center staff-member-warning" *ngIf="!loadingFlag">
         <i class="fal fa-calendar-times text-secondary"></i>
 
         <div class="mt-4 mb-3">
           <h1 class="mb-3 mat-heading">მონაცემები არ მოიძებნა</h1>
-          <!-- <span>
-            {{ 'EmptyOrders' | translate }}
-          </span> -->
         </div>
 
-        <!-- <button mat-raised-button color="primary" routerLink="/staff/add">
-          {{ 'AddEmployee' | translate }}
-        </button> -->
-
-      </div>
+      </div> -->
 
     </div>
 

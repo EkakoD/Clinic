@@ -1,0 +1,19 @@
+<div mat-dialog-content>
+  <div class="title green ">გსურთ ვიზიტის დაჯავშნა?</div>
+  <div class="title text-color py-3">შეგიძლიათ მიუთითოთ თქვენი პრობლემა</div>
+  <div class=" col-12 px-0">
+    <mat-form-field appearance="outline" class="mt-1" class="comment">
+      <textarea matInput type="text" [(ngModel)]="comment" placeholder="აღწერა..."></textarea>
+    </mat-form-field>
+  </div>
+  <div class="col-12 px-0 d-flex justify-content-end align-items-center ">
+    <div class="text-right mt-2">
+      <div class="d-inline-block">
+        <button mat-raised-button class="submit-btn" (click)="submit()">
+          დაჯავშნა
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

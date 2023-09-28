@@ -17,7 +17,8 @@ export class DoctorCardComponent implements OnInit {
   ngOnInit() {
   }
   navigateToDetail(id) {
-    this.router.navigate(['/user/details/' + id])
+    console.log(id)
+    this.router.navigate(['home/doctor/' + id])
   }
 
 }

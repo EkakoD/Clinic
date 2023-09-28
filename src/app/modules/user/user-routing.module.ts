@@ -7,7 +7,7 @@ import { DetailsComponent } from './page/details/details.component';
 export const routes: Routes = [
     {
         path: 'details/:id',
-        canActivate: [AuthGuard],
+        // canActivate: [AuthGuard],
         component: DetailsComponent
     },
 

@@ -14,8 +14,8 @@ export class AppointmentsService {
     let params = new HttpParams()
       .set('StartDate', start.toString())
       .set('EndDate', end.toString())
-      .set('ClientId', clientId ? clientId.toString() : null)
-      .set('DoctorId', doctorId ? doctorId.toString() : null)
+      .set('PatientId', clientId ? clientId.toString() : '')
+      .set('DoctorId', doctorId ? doctorId.toString() : '')
     return this.http.get<{ success: boolean, message: string, data: AppointmentModel[] }>(this.appointmentsUrl + "/GetAppointments", { params });
   }
 
@@ -30,8 +30,8 @@ export class AppointmentsService {
 
   deleteAppointment(id: number) {
     let params = new HttpParams()
-      .set('ID', id.toString())
-    return this.http.delete<{ success: boolean, message: string, data: string }>(this.appointmentsUrl + "/DeleteAppointment");
+      .set('Id', id.toString())
+    return this.http.delete<{ success: boolean, message: string, data: string }>(this.appointmentsUrl + "/DeleteAppointment", { params });
 
   }
 }

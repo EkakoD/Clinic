@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { DialogComponent } from 'src/app/core/component/dialog/dialog.component';
 import { AuthService } from 'src/app/core/service/auth/auth.service';
 import { UsersService } from 'src/app/core/service/users/users.service';
@@ -44,12 +45,16 @@ export class HeaderComponent implements OnInit {
     }
 
   ];
+  userId: number;
   user: { firstname: string, lastname: string };
   constructor(
     private dialog: MatDialog,
     private authService: AuthService,
-    private usersService: UsersService
-  ) { }
+    private usersService: UsersService,
+    private router: Router
+  ) {
+    this.userId = parseFloat(localStorage.getItem("id"));
+  }
 
   ngOnInit() {
     this.getUserDetails();
@@ -76,11 +81,16 @@ export class HeaderComponent implements OnInit {
 
     // )
   }
-  getUserDetails() {
-    var id = parseFloat(localStorage.getItem("id"));
-    if (id) {
 
-      this.usersService.getUserDetails(id).subscribe(
+  myAppointments() {
+    if (this.userId) {
+      this.router.navigate(['/user/details/' + this.userId]);
+    }
+  }
+  getUserDetails() {
+
+    if (this.userId) {
+      this.usersService.getUserDetails(this.userId).subscribe(
         res => {
           this.user = {
             firstname: res.data.firstname,

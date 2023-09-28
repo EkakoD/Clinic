@@ -1,14 +1,15 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subject, finalize } from 'rxjs';
 import { InfoSnackBarComponent } from 'src/app/core/component/info-snack-bar/info-snack-bar.component';
 import { AppointmentsService } from 'src/app/core/service/appointments/appointments.service';
 import { environment } from 'src/environments/environment';
 import { AppointmentTimesModel, CreateAppointmentModel } from '../../model/appointment/appointment.model';
 import { MakeAppointmentModalComponent } from './make-appointment-modal/make-appointment-modal.component';
+import { DialogComponent } from 'src/app/core/component/dialog/dialog.component';
 
 @Component({
   selector: 'app-time-table',
@@ -18,6 +19,7 @@ import { MakeAppointmentModalComponent } from './make-appointment-modal/make-app
 export class TimeTableComponent implements OnInit {
   env = environment;
   calendarWrapper: any;
+  @Input() makeAppointment: boolean;
   @ViewChild('calendarWrapper')
   set calendarWrapperContent(content: ElementRef) {
     if (content) {
@@ -51,7 +53,9 @@ export class TimeTableComponent implements OnInit {
   id: number;
   userRole: string;
   doctorId: number;
-  patientId: number = null;
+  patientId: number;
+  enableDelete = false;
+  enableMakeAppointment = false;
   timeList = [];
   timeLists = [];
   calendarHeight = 0;
@@ -60,7 +64,6 @@ export class TimeTableComponent implements OnInit {
 
   appointments = [];
   appointmentTimes: AppointmentTimesModel[] = [];
-  // channelEnum = AppointmentChannelEnum;
   range: FormGroup;
   toolbarMenu: any;
 
@@ -84,13 +87,28 @@ export class TimeTableComponent implements OnInit {
     private appointmentsService: AppointmentsService,
     private route: ActivatedRoute
   ) {
+    const paramId = parseFloat(this.route.snapshot.paramMap.get('id'))
     this.userRole = localStorage.getItem("role");
-    if (this.userRole == 'User') {
-      this.doctorId = parseFloat(this.route.snapshot.paramMap.get('id'));
-      this.patientId = parseFloat(localStorage.getItem("id"));
-    }
-    this.id = parseFloat(localStorage.getItem("id"));
+    if (!this.userRole) {
+      this.enableMakeAppointment = true;
+      this.doctorId = paramId;
+    } else {
+      const id = parseFloat(localStorage.getItem("id"));
+      if (this.userRole == 'User') {
+        if (id != paramId) {
+          this.doctorId = paramId;
+          this.patientId = id
+          this.enableMakeAppointment = true;
 
+        } else {
+          this.enableDelete = true;
+          this.patientId = id;
+        }
+      } else if (this.userRole == 'Doctor') {
+        this.doctorId = paramId;
+      }
+    }
+    // this.id = parseFloat(localStorage.getItem("id"));
     this.calendarDate.setHours(0, 0, 0, 0);
     this.currentMonth = this.months[this.calendarDate.getMonth()];
     this.currentYear = this.calendarDate.getFullYear();
@@ -107,7 +125,6 @@ export class TimeTableComponent implements OnInit {
     this.timeLists = this.getDatesInRange(this.range.value.start, this.range.value.end);
 
   }
-
   getAppointmentTimes() {
     this.appointmentsService.getAppointmentTimes()
       .subscribe(res => {
@@ -218,28 +235,52 @@ export class TimeTableComponent implements OnInit {
   }
 
   makeAppoitment(item, time) {
-    const dialogRef = this.dialog.open(MakeAppointmentModalComponent, {
-      panelClass: ['container'],
-      maxWidth: '400px',
-      maxHeight: '90vh',
-      disableClose: false,
-      autoFocus: false,
+    if (this.patientId) {
+      const dialogRef = this.dialog.open(MakeAppointmentModalComponent, {
+        panelClass: ['container'],
+        maxWidth: '400px',
+        maxHeight: '90vh',
+        disableClose: false,
+        autoFocus: false,
 
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res?.result) {
+          const comment = res.comment;
+          const appointmentModel: CreateAppointmentModel = {
+            clientId: this.patientId,
+            doctorId: this.doctorId,
+            timeId: item.id,
+            date: this.dateToString(time.fullDate),
+            comment: comment
+          };
+          this.submitLoadingFlag = true;
+          this.appointmentsService.createAppointment(appointmentModel).pipe(
+            finalize(() => this.submitLoadingFlag = false)).subscribe(
+              res => {
+                if (res.success) {
+                  this.snackbarAdapter('მოქმედება წარმატებით შესრულდა', true);
+                  this.getCalendar();
+                }
+              }
+            )
+        }
+      });
+    } else {
+      this.snackbarAdapter('დასაჯავშნად გთხოვთ გაიაროთ ავტორიზაცია ან რეგისტრაცია', false);
+    }
+
+  }
+
+  deleteAppointment(id: number) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: { msg: 'ნამდვილად გსურთ ჯავშნის გაუქმება?' }
     });
 
     dialogRef.afterClosed().subscribe(res => {
-
-      if (res.result) {
-        const comment = res.comment;
-        const appointmentModel: CreateAppointmentModel = {
-          clientId: this.patientId,
-          doctorId: this.doctorId,
-          timeId: item.id,
-          date: this.dateToString(time.fullDate),
-          comment: comment
-        };
-        this.submitLoadingFlag = true;
-        this.appointmentsService.createAppointment(appointmentModel).pipe(
+      if (res === 'true') {
+        this.appointmentsService.deleteAppointment(id).pipe(
           finalize(() => this.submitLoadingFlag = false)).subscribe(
             res => {
               if (res.success) {
@@ -249,23 +290,7 @@ export class TimeTableComponent implements OnInit {
             }
           )
       }
-
     });
-
-
-  }
-  // draw  and get calendar on date change
-  filterByDate(dateRangeStart: HTMLInputElement, dateRangeEnd: HTMLInputElement) {
-    if (dateRangeEnd.value) {
-      this.loadingFlag--;
-      this.timeList = this.getDatesInRange(this.range.value.start, this.range.value.end);
-      this.calendarLayer.nativeElement.scrollLeft = this.timeDisplay.nativeElement.scrollLeft = 0;
-      const timeWrapper = document.getElementsByClassName('time-display-wrapper')[0];
-      timeWrapper.scrollLeft = 0;
-      this.getCalendar();
-    } else {
-      this.loadingFlag++;
-    }
   }
 
 

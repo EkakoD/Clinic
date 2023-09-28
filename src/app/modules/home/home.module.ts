@@ -8,13 +8,15 @@ import { CategoriesService } from 'src/app/core/service/categories/categories.se
 import { DoctorCardComponent } from './page/home/doctor-card/doctor-card.component';
 import { UsersService } from 'src/app/core/service/users/users.service';
 import { DoctorComponent } from './page/doctor/doctor.component';
+import { DoctorInfoComponent } from './page/doctor/doctor-info/doctor-info.component';
 
 @NgModule({
     declarations: [
         HomeComponent,
         BannerComponent,
         DoctorCardComponent,
-        DoctorComponent
+        DoctorComponent,
+        DoctorInfoComponent
     ],
     imports: [
         CommonModule,

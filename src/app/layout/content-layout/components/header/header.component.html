@@ -33,6 +33,9 @@
             {{user.firstname}} {{user.lastname}}
           </button>
           <mat-menu #userMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="myAppointments()">
+              <i class="far fa-sign-out mr-1"></i> <span> ჩემი ჯავშნები</span>
+            </button>
             <button mat-menu-item (click)="logoutUser()">
               <i class="far fa-sign-out mr-1"></i> <span> გასვლა</span>
             </button>

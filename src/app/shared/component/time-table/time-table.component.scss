@@ -50,7 +50,7 @@
     padding: 6px 26px;
 }
 .accent {
-    color: $accent-color;;
+    color: $accent-color;
 }
 .extended-select {
     width: 100%;
@@ -189,20 +189,15 @@
     &.workingTime {
         background: #fff;
     }
-
     .time-viewer {
-        color: #2b72bd;
-        background-color: #ebf5fd;
-        visibility: hidden;
+        color: rgba(5, 51, 84, 0.3);
     }
-
     &:hover .time-viewer {
-        visibility: visible;
+        background-color: #ebf5fd;
     }
 }
 
 .booked {
-    background-color: $Clinic-light-green;
     position: absolute;
     font-size: 12px;
     width: 100px;
@@ -211,6 +206,23 @@
     border-radius: 5px;
 }
 
+.red {
+    background-color: $Clinic-light-red;
+}
+
+.green {
+    background-color: $Clinic-light-green;
+}
+
+.ft-size-14 {
+    font-size: 14px;
+}
+
+.light-green {
+    color: $Clinic-green;
+}
+.gray {
+}
 // deep
 ::ng-deep {
     // action menu
@@ -288,4 +300,29 @@
 }
 .ft-size-18 {
     font-size: 18px;
+}
+
+.edit-btn {
+    background-color: $Clinic-gray !important;
+    color: $accent-color !important;
+}
+
+.delete-btn {
+    background-color: $Clinic-light-red !important;
+    color: $Clinic-white !important;
+}
+.delete {
+    text-align: right;
+    position: absolute;
+    cursor: pointer;
+    span {
+        width: 18px !important;
+        height: 16px;
+        display: inline-flex;
+        text-align: center;
+        background-color: #ffffff;
+        border-radius: 50%;
+        justify-content: center;
+        color: $Clinic-red;
+    }
 }

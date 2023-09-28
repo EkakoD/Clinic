@@ -1,0 +1,11 @@
+@import "/src/styles/utilities/_variables";
+
+.edit-btn {
+    background-color: $Clinic-gray !important;
+    color: $accent-color !important;
+}
+
+.delete-btn {
+    background-color: $Clinic-light-red !important;
+    color: $Clinic-white !important;
+}

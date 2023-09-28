@@ -1,0 +1,34 @@
+<mat-card class="user-card" *ngIf="doctor">
+  <div class="col-12 d-flex py-5">
+
+    <div class="col-3 user-image d-flex flex-perfect-center mt-5">
+      <img [src]="doctor.imageUrl" alt="user-img" />
+    </div>
+
+
+    <div class="col-3 d-flex justify-content-start align-items-center ">
+      <div class="main-info pr-3">
+        <div class="ft-size-22 text-color ">{{ doctor.firstname }} {{ doctor.lastname }}</div>
+        <div class="grey mt-4">{{doctor.categoryName}}</div>
+        <div class="review-stars  mt-4 d-flex justify-content-start" *ngIf="doctor.review > 0">
+          <img *ngFor="let item of [].constructor(doctor.review); let i = index" src="assets/images/star.png"
+            alt="star-img" class="mt-2">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-6 pl-3 pr-5 d-flex align-items-center ">
+      <div>
+        <div class="">
+          <span class="accent"> 2017 - დღემდე,</span> ჩვენი კლინიკის გენერალური დირექტორი
+        </div>
+        <div class="mt-4">
+          <span class="accent"> 2002 - დღემდე</span> ჩვენი კომპიუტერული ტომოგრაფიის განყოფილების ხელმძღვანელი
+        </div>
+        <div class="mt-4">
+          <span class="accent"> 1995 - დღემდე,,</span> კარდიოლოგი / არითმოლოგი
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

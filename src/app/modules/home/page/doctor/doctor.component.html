@@ -1,3 +1,35 @@
-<p>
-  doctor works!
-</p>
+<div class="col-12 d-flex justify-content-center w-100 p-5">
+  <div class="col-3 pr-4">
+    <app-categories></app-categories>
+  </div>
+  <div class="col-9">
+
+    <div class="col-12">
+      <app-doctor-info></app-doctor-info>
+    </div>
+    <div class="col-12 mt-5 ">
+      <div class="d-flex">
+        <app-time-table [makeAppointment]="true"></app-time-table>
+        <div class="pt-5 ml-4">
+          <div class="pt-5 mb-3">
+            <button mat-raised-button class="edit-btn d-flex align-items-center pt-1" [disabled]="true">
+              <span>
+                <img src="assets/images/edit.png" alt="edit">
+              </span>
+              რედაქტირება
+            </button>
+          </div>
+          <div>
+            <button mat-raised-button class=" delete-btn d-flex align-items-center pt-1" [disabled]="true">
+              <span>
+                <img src="assets/images/delete.png" class="pt-1" alt="delete">
+              </span>
+              წაშლა
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

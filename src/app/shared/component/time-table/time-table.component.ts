@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@an
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-// import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject, finalize } from 'rxjs';
 import { InfoSnackBarComponent } from 'src/app/core/component/info-snack-bar/info-snack-bar.component';
 import { AppointmentsService } from 'src/app/core/service/appointments/appointments.service';
@@ -47,6 +47,9 @@ export class TimeTableComponent implements OnInit {
 
   days = ['კვი', 'ორშ', 'სამ', 'ოთხ', 'ხუთ', 'პარ', 'შაბ'];
   months = ['იანვარი', 'თებერვალი', 'მარტი', 'აპრილი', 'მაისი', 'ივნისი', 'ივლისი', 'აგვისტო', 'სექტემბერი', 'ოქტომბერი', 'ნოემბერი', 'დეკემბერი']
+  id: number;
+  userRole: string;
+
   timeList = [];
   timeLists = [];
   calendarHeight = 0;
@@ -77,9 +80,11 @@ export class TimeTableComponent implements OnInit {
     // public dateUtilitiesService: DateUtilitiesService, არ ვიცი ზუსტად მინდა თუ არა
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private appointmentsService: AppointmentsService
-    // private route: ActivatedRoute
+    private appointmentsService: AppointmentsService,
+    private route: ActivatedRoute
   ) {
+    this.id = parseFloat(this.route.snapshot.paramMap.get('id'));
+    this.userRole = localStorage.getItem("role");
     this.calendarDate.setHours(0, 0, 0, 0);
     this.currentMonth = this.months[this.calendarDate.getMonth()];
     this.currentYear = this.calendarDate.getFullYear();
@@ -96,7 +101,7 @@ export class TimeTableComponent implements OnInit {
     var start = this.calendarDate;
     // const end = new Date(this.range.value.end).getDate();
     // draw calendar
-
+    console.log(this.id, this.userRole);
     console.log(this.timeLists)
     this.timeLists = this.getDatesInRange(this.range.value.start, this.range.value.end);
 
@@ -144,7 +149,7 @@ export class TimeTableComponent implements OnInit {
     const start = this.dateToString(this.range.value.start);
     const end = this.dateToString(this.range.value.end);
     this.loadingFlag++;
-    this.appointmentsService.getAppointmentForCalendar(start, end, null, 20)
+    this.appointmentsService.getAppointmentForCalendar(start, end, null,)
       .pipe(
         finalize(() => this.loadingFlag--))
       .subscribe(res => {

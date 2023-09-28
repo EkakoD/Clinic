@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/core/component/dialog/dialog.component';
 import { AuthService } from 'src/app/core/service/auth/auth.service';
+import { UsersService } from 'src/app/core/service/users/users.service';
 import { LoginModalComponent } from 'src/app/modules/auth/login-modal/login-modal.component';
 
 @Component({
@@ -46,11 +47,21 @@ export class HeaderComponent implements OnInit {
   user: { firstname: string, lastname: string };
   constructor(
     private dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private usersService: UsersService
   ) { }
 
   ngOnInit() {
     this.getUserDetails();
+    this.authService.authEvent$.subscribe(res => {
+      if (res) {
+        this.getUserDetails();
+      }
+      else {
+        this.user = null;
+        console.log(this.user)
+      }
+    })
   }
 
   openLoginModal() {
@@ -67,10 +78,10 @@ export class HeaderComponent implements OnInit {
     // )
   }
   getUserDetails() {
-    var id = localStorage.getItem("id");
+    var id = parseFloat(localStorage.getItem("id"));
     if (id) {
 
-      this.authService.getUserDetails(id).subscribe(
+      this.usersService.getUserDetails(id).subscribe(
         res => {
           this.user = {
             firstname: res.data.firstname,

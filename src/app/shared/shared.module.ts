@@ -6,10 +6,7 @@ import { MaterialModule } from './material.module';
 import { CategoriesComponent } from './component/categories/categories.component';
 import { TimeTableComponent } from './component/time-table/time-table.component';
 import { AppointmentPositionDirective } from './directives/appointment-position.directive';
-export function culture() {
-    const locale = localStorage.getItem('culture');
-    return locale ? locale.substr(0, locale.indexOf('-')) : 'ka';
-}
+
 
 @NgModule({
     imports: [

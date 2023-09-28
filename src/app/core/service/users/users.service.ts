@@ -3,7 +3,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { DoctorsModel, UserDetailsModel } from 'src/app/shared/model/users/users.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 
 export class UsersService {
   env = environment;

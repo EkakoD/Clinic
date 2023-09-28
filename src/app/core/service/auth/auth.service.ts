@@ -43,11 +43,16 @@ export class AuthService {
       tap((loginRes) => {
         console.log(loginRes)
         // save token
-        if (!loginRes.error) {
+        if (loginRes.success) {
           localStorage.setItem('token', loginRes.data.token);
           localStorage.setItem('id', loginRes.data.id);
           localStorage.setItem('role', loginRes.data.role);
-          this.getUserDetails(loginRes.data.id).subscribe(res => console.log(res));
+
+          this.getUserDetails(loginRes.data.id).subscribe(res => {
+            localStorage.setItem('role', res.data.roleName);
+            this.authEvent$.next(true);
+
+          });
           // const ExpireDate = (new Date().getTime() / 1000) + loginRes.expires_in;
           // localStorage.setItem('expire_date', ExpireDate);
         } else {
@@ -70,16 +75,7 @@ export class AuthService {
   getUserDetails(id) {
     let params = new HttpParams()
       .set('Id', id.toString())
-    return this.http.get<any>(this.usersUrl + '/GetUserDetails', { params }).pipe(
-      tap(client => {
-
-        // save external client info
-        console.log(client)
-        // this.externalClient$.next(client);
-        this.authEvent$.next(true);
-
-      })
-    )
+    return this.http.get<any>(this.usersUrl + '/GetUserDetails', { params })
 
   }
 

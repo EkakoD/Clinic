@@ -13,8 +13,6 @@ import { LoginModalComponent } from './login-modal/login-modal.component';
     declarations: [
         RegisterDoctorComponent,
         RegisterClientComponent,
-        // ResetPasswordModalComponent,
-        // LoginModalComponent
     ],
     imports: [
         CommonModule,

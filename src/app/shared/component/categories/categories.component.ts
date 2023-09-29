@@ -22,7 +22,6 @@ export class CategoriesComponent implements OnInit {
   getCategories() {
     this.categoriesService.getCategories().subscribe(res => {
       this.categories = res.data;
-      console.log(this.categories)
     })
   }
   selectCategory(category: CategoriesModel) {

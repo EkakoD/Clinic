@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
       finalize(() => this.loadingFlag = false)
     ).subscribe(res => {
       this.doctors = res.data;
-      console.log(this.doctors)
     });
 
 

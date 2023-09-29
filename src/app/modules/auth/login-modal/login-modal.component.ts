@@ -21,7 +21,6 @@ export class LoginModalComponent implements OnInit {
     public dialogLoginRef: MatDialogRef<LoginModalComponent>,
     private authService: AuthService,
     private snackBar: MatSnackBar
-    // @Inject(MAT_DIALOG_DATA) public data: DialogData,
   ) { }
 
   ngOnInit() {

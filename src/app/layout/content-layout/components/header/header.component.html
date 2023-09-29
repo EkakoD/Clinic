@@ -5,16 +5,8 @@
       კლინიკა
     </div>
     <div class="navigation col-12 col-sm-6">
-      <!-- <nav class="nav d-none d-lg-block" mat-tab-nav-bar>
-        <a mat-tab-link *ngFor="let link of navigation" [routerLink]="link.url ? link.url : ['./']"
-         (click)="activeLink = link" [active]="activeLink == link">
-          <span class="nav-item-text">{{ link.text }}</span> </a>
-      </nav> -->
 
       <nav mat-tab-nav-bar>
-        <!-- <a mat-tab-link *ngFor="let link of navigation" [routerLink]="link.url" routerLinkActive #rla="routerLinkActive"
-          [active]="rla.isActive"> -->
-
         <a mat-tab-link *ngFor="let link of navigation" [routerLink]="link.url" routerLinkActive
           #rla1="routerLinkActive" [routerLinkActiveOptions]="{exact: true}" [active]="rla1.isActive">
           {{link.text}}

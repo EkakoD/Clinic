@@ -26,12 +26,10 @@ export class DoctorInfoComponent implements OnInit {
 
   getUserDetails() {
     this.loadingFlag = true;
-    console.log(this.doctorId);
     this.usersService.getUserDetails(this.doctorId).pipe(
       finalize(() => this.loadingFlag = false)
     ).subscribe(res => {
       this.doctor = res.data;
-      console.log(this.doctor)
     });
   }
 }

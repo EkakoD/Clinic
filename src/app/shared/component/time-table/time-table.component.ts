@@ -92,16 +92,16 @@ export class TimeTableComponent implements OnInit {
       this.enableMakeAppointment = true;
       this.doctorId = paramId;
     } else {
-      const id = parseFloat(localStorage.getItem("id"));
+      this.id = parseFloat(localStorage.getItem("id"));
       if (this.userRole == 'User') {
-        if (id != paramId) {
+        if (this.id != paramId) {
           this.doctorId = paramId;
-          this.patientId = id
+          // this.patientId = id
           this.enableMakeAppointment = true;
 
         } else {
           this.enableDelete = true;
-          this.patientId = id;
+          this.patientId = this.id;
         }
       } else if (this.userRole == 'Doctor') {
         this.doctorId = paramId;
@@ -128,7 +128,6 @@ export class TimeTableComponent implements OnInit {
     this.appointmentsService.getAppointmentTimes()
       .subscribe(res => {
         this.appointmentTimes = res.data;
-        console.log(this.appointmentTimes);
 
       });
 
@@ -187,7 +186,6 @@ export class TimeTableComponent implements OnInit {
     this.range.get('start').setValue(new Date(this.currentYear, index + 1, startDate.getDate()));
     this.range.get('end').setValue(new Date(this.currentYear, index + 1, startDate.getDate()).getTime() + 1000 * 60 * 60 * 24 * 7)
     this.timeLists = this.getDatesInRange(this.range.value.start, this.range.value.end);
-    console.log(this.timeLists);
     this.getCalendar();
 
   }
@@ -233,7 +231,7 @@ export class TimeTableComponent implements OnInit {
   }
 
   makeAppoitment(item, time) {
-    if (this.patientId) {
+    if (this.id) {
       const dialogRef = this.dialog.open(MakeAppointmentModalComponent, {
         panelClass: ['container'],
         maxWidth: '400px',
@@ -247,7 +245,7 @@ export class TimeTableComponent implements OnInit {
         if (res?.result) {
           const comment = res.comment;
           const appointmentModel: CreateAppointmentModel = {
-            clientId: this.patientId,
+            clientId: this.id,
             doctorId: this.doctorId,
             timeId: item.id,
             date: this.dateToString(time.fullDate),

@@ -26,12 +26,10 @@ export class MainInfoComponent implements OnInit {
 
   getUserDetails() {
     this.loadingFlag = true;
-    console.log(this.userId);
     this.usersService.getUserDetails(this.userId).pipe(
       finalize(() => this.loadingFlag = false)
     ).subscribe(res => {
       this.user = res.data;
-      console.log(this.user)
     });
   }
 }

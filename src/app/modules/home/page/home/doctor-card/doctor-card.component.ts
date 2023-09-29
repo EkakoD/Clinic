@@ -9,15 +9,16 @@ import { DoctorsModel } from 'src/app/shared/model/users/users.model';
 })
 export class DoctorCardComponent implements OnInit {
   @Input() doctor: DoctorsModel;
-
+  userRole: string;
   constructor(
     private router: Router
-  ) { }
+  ) {
+    this.userRole = localStorage.getItem('role');
+  }
 
   ngOnInit() {
   }
   navigateToDetail(id) {
-    console.log(id)
     this.router.navigate(['home/doctor/' + id])
   }
 

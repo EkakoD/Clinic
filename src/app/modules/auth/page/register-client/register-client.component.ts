@@ -17,8 +17,7 @@ export class RegisterClientComponent implements OnInit {
   registrationForm: FormGroup;
 
   errMessage: string;
-  submitLoadingFlag = false; // Todo ლოუდერებისთვის
-  loadingFlag = false; // Todo ლოუდერებისთვის
+  submitLoadingFlag = false; 
   sendCodeLoadingFlag = false;
   constructor(
     public router: Router,

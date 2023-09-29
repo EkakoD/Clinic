@@ -25,7 +25,7 @@ export class RegisterDoctorComponent implements OnInit {
   cv: UploadFileModel;
   catgeories: CategoriesModel[];
   errMessage: string;
-  submitLoadingFlag = false; // Todo ლოუდერებისთვის
+  submitLoadingFlag = false;
   selectedFileName: string = '';
   constructor(
     public router: Router,

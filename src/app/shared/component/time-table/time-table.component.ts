@@ -69,7 +69,6 @@ export class TimeTableComponent implements OnInit {
 
 
   submitLoadingFlag = false
-  loadingFlag = 0;
   firstLoad = true;
 
 
@@ -167,13 +166,12 @@ export class TimeTableComponent implements OnInit {
   getCalendar() {
     const start = this.dateToString(this.range.value.start);
     const end = this.dateToString(this.range.value.end);
-    this.loadingFlag++;
+    this.submitLoadingFlag = true;
     this.appointmentsService.getAppointmentForCalendar(start, end, this.patientId, this.doctorId)
       .pipe(
-        finalize(() => this.loadingFlag--))
+        finalize(() => this.submitLoadingFlag = false))
       .subscribe(res => {
         this.appointments = res.data
-        console.log(this.appointments);
 
       });
 

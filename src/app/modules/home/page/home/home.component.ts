@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   getDoctors() {
-    this.loadingFlag = true; // Todo: html-ში loader დავადო
+    this.loadingFlag = true; 
     this.usersService.getDoctors(this.catgeoryId).pipe(
       finalize(() => this.loadingFlag = false)
     ).subscribe(res => {

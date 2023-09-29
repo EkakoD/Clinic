@@ -81,12 +81,11 @@
 
                 <div class="d-flex flex-perfect-center booked" [ngClass]="enableMakeAppointment ?'red' :'green'"
                   [appAppointmentPosition]="[appointmentItem.timeId,appointmentItem.date,timeLists[0].fullDate]">
-                  <ng-container class="delete w-100 h-100" *ngIf="enableDelete"
-                    (click)="deleteAppointment(appointmentItem.id)">
+                  <div class="delete w-100 h-100" *ngIf="enableDelete" (click)="deleteAppointment(appointmentItem.id)">
                     <span class="mt-1 mr-1">
                       x
                     </span>
-                  </ng-container>
+                  </div>
                   <span *ngIf="!enableMakeAppointment">დაჯავშნილია</span>
                 </div>
 
@@ -138,4 +137,4 @@
   </div>
 </div>
 
-<!-- <app-page-loader class="fixed-loader" *ngIf="loadingFlag"></app-page-loader> -->
+<app-page-loader class="fixed-loader" *ngIf="submitLoadingFlag"></app-page-loader>

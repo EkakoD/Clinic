@@ -7,6 +7,7 @@ import { CategoriesComponent } from './component/categories/categories.component
 import { TimeTableComponent } from './component/time-table/time-table.component';
 import { AppointmentPositionDirective } from './directives/appointment-position.directive';
 import { MakeAppointmentModalComponent } from './component/time-table/make-appointment-modal/make-appointment-modal.component';
+import { PageLoaderComponent } from './component/page-loader/page-loader.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { MakeAppointmentModalComponent } from './component/time-table/make-appoi
         CategoriesComponent,
         TimeTableComponent,
         AppointmentPositionDirective,
-        MakeAppointmentModalComponent
+        MakeAppointmentModalComponent,
+        PageLoaderComponent
     ],
     entryComponents: [],
     providers: [
@@ -34,7 +36,8 @@ import { MakeAppointmentModalComponent } from './component/time-table/make-appoi
         MaterialModule,
         CategoriesComponent,
         TimeTableComponent,
-        AppointmentPositionDirective
+        AppointmentPositionDirective,
+        PageLoaderComponent
     ]
 })
 

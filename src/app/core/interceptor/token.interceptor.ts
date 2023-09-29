@@ -9,17 +9,16 @@ import { WebStorageService, LOCAL_STORAGE } from 'ngx-webstorage-service';
 export class TokenInterceptorService implements HttpInterceptor {
 
     constructor(
-        @Inject(LOCAL_STORAGE) private webStorage: WebStorageService,
     ) { }
 
-    intercept(req:any, next:any) {
+    intercept(req: any, next: any) {
 
         // get service
-        if (this.webStorage.get('token')) {
+        if (localStorage.getItem('token')) {
 
             const tokenizedReq = req.clone({
                 setHeaders: {
-                    Authorization: `${this.webStorage.get('token')}`,
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
                 }
             });
 

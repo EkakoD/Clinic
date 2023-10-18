@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AppointmentModel, AppointmentTimesModel, CreateAppointmentModel } from 'src/app/shared/model/appointment/appointment.model';
+import { AppointmentModel, AppointmentTimesModel, CreateAppointmentModel, UpdateAppointmentModel } from 'src/app/shared/model/appointment/appointment.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -34,4 +34,9 @@ export class AppointmentsService {
     return this.http.delete<{ success: boolean, message: string, data: string }>(this.appointmentsUrl + "/DeleteAppointment", { params });
 
   }
+
+  updateAppointment(model: UpdateAppointmentModel) {
+    return this.http.put<{ success: boolean, message: string, data: string }>(this.appointmentsUrl + "/UpdateAppointment", model);
+  }
+  
 }

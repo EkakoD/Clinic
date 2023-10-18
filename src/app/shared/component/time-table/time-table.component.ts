@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { AppointmentTimesModel, CreateAppointmentModel } from '../../model/appointment/appointment.model';
 import { MakeAppointmentModalComponent } from './make-appointment-modal/make-appointment-modal.component';
 import { DialogComponent } from 'src/app/core/component/dialog/dialog.component';
+import { TooltipPosition } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-time-table',

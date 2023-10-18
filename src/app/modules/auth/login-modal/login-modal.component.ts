@@ -70,6 +70,7 @@ export class LoginModalComponent implements OnInit {
       res => {
         this.snackbarAdapter('მოქმედება წარმატებით შესრულდა', true);
         this.dialogLoginRef.close();
+        this.authService.authEvent$.next(true);
       });
   }
 

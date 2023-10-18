@@ -61,6 +61,7 @@ export class HeaderComponent implements OnInit {
     this.authService.authEvent$.subscribe(res => {
       if (res) {
         this.getUserDetails();
+        this.userId = parseFloat(localStorage.getItem("id"));
       }
       else {
         this.user = null;
@@ -88,7 +89,6 @@ export class HeaderComponent implements OnInit {
     }
   }
   getUserDetails() {
-
     if (this.userId) {
       this.usersService.getUserDetails(this.userId).subscribe(
         res => {
@@ -96,7 +96,6 @@ export class HeaderComponent implements OnInit {
             firstname: res.data.firstname,
             lastname: res.data.lastname
           }
-
         }
       )
     }

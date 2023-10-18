@@ -12,7 +12,8 @@ export class AppointmentModel {
         public doctorId: number,
         public patientId: number,
         public timeId: number,
-        public date: string
+        public date: string,
+        public comment: string
     ) { }
 }
 
@@ -22,6 +23,13 @@ export class CreateAppointmentModel {
         public doctorId: number,
         public timeId: number,
         public date: string,
+        public comment: string
+    ) { }
+}
+
+export class UpdateAppointmentModel {
+    constructor(
+        public id: number,
         public comment: string
     ) { }
 }

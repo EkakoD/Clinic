@@ -36,7 +36,7 @@ export class ResetPasswordModalComponent implements OnInit {
       return true;
     }
   }
-  
+
   submit() {
     const model: ResetPasswordModel = {
       email: this.resetPasswordForm.get('email').value,
@@ -48,13 +48,6 @@ export class ResetPasswordModalComponent implements OnInit {
       res => {
         this.snackbarAdapter('მოქმედება წარმატებით შესრულდა', true);
         this.dialogRef.close();
-        const dialogRef = this.dialog.open(ResetPasswordModalComponent, {
-          panelClass: ['container'],
-          maxWidth: '700px',
-          maxHeight: '90vh',
-          disableClose: false,
-          autoFocus: false,
-        });
       });
   }
 

@@ -12,6 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatMenuModule } from '@angular/material/menu'
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const modules = [
     MatInputModule,
@@ -26,7 +27,8 @@ const modules = [
     MatProgressSpinnerModule,
     MatSelectModule,
     MatMenuModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTooltipModule
 ];
 
 @NgModule({

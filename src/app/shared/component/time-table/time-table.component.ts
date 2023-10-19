@@ -86,17 +86,18 @@ export class TimeTableComponent implements OnInit {
     private appointmentsService: AppointmentsService,
     private route: ActivatedRoute
   ) {
-    const paramId = parseFloat(this.route.snapshot.paramMap.get('id'))
+    const paramId = parseFloat(this.route.snapshot.paramMap.get('id'));
+    this.id = parseFloat(localStorage.getItem("id"));
+
     this.userRole = localStorage.getItem("role");
     if (!this.userRole) {
       this.enableMakeAppointment = true;
       this.doctorId = paramId;
     } else {
-      this.id = parseFloat(localStorage.getItem("id"));
       if (this.userRole == 'User') {
         if (this.id != paramId) {
           this.doctorId = paramId;
-          // this.patientId = id
+          // this.patientId = id;
           this.enableMakeAppointment = true;
 
         } else {

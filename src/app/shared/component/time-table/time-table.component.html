@@ -80,8 +80,9 @@
               <ng-container *ngFor="let appointmentItem of appointments; trackBy:trackByAppointmentId;">
 
                 <div class="d-flex flex-perfect-center booked" #tooltip="matTooltip"
-                  (click)="selectAppointment(appointmentItem)" [matTooltip]="appointmentItem.comment"
-                  matTooltipPosition="below" [ngClass]="{ 
+                  (click)="selectAppointment(appointmentItem)"
+                  [matTooltip]="!enableMakeAppointment ? appointmentItem.comment : null" matTooltipPosition="below"
+                  [ngClass]="{ 
                   'red':enableMakeAppointment,
                   'green': !enableMakeAppointment,
                   'selected': selectedAppiontment?.id == appointmentItem?.id }"

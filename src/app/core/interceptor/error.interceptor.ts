@@ -25,7 +25,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
         if (err.status === 401) {
 
             // logout
-            this.authService.logOut(); 
+            this.authService.logOut();
 
         } else if (err.status === 403 || err.status === 405) {
 
@@ -56,12 +56,11 @@ export class ErrorInterceptorService implements HttpInterceptor {
             // bad request
             let errMSG: string;
 
-            if (typeof err.error === 'object') {
+            if (typeof err.error.message === 'object') {
 
                 errMSG = '';
 
                 let size = 0;
-
                 for (const key in err.error) {
                     if (err.error.hasOwnProperty(key)) { size++; }
                 }
@@ -70,9 +69,9 @@ export class ErrorInterceptorService implements HttpInterceptor {
                     errMSG += index === size - 1 ? value : value + '<br>';
                 });
 
-            } else if (typeof err.error === 'string') {
+            } else if (typeof err.error.message === 'string') {
 
-                errMSG = err.error;
+                errMSG = err.error.message;
 
             } else {
 

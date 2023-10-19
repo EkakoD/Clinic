@@ -46,10 +46,11 @@ export class AuthService {
           localStorage.setItem('token', loginRes.data.token);
           localStorage.setItem('id', loginRes.data.id);
           localStorage.setItem('role', loginRes.data.role);
-          this.authEvent$.next(true);
 
           this.getUserDetails(loginRes.data.id).subscribe(res => {
             localStorage.setItem('role', res.data.roleName);
+            this.authEvent$.next(true);
+
 
           });
           // const ExpireDate = (new Date().getTime() / 1000) + loginRes.expires_in;

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, SimpleChanges } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -10,10 +10,17 @@ export class MakeAppointmentModalComponent implements OnInit {
   comment: string = null;
   constructor(
     public dialogRef: MatDialogRef<MakeAppointmentModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: string
   ) { }
 
   ngOnInit() {
+    if (this.data) {
+      this.comment = this.data
+    }
   }
+
+
+
   submit() {
     const model = {
       result: true,

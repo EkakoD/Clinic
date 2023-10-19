@@ -79,10 +79,15 @@
             <ng-container *ngIf="appointments.length!==0">
               <ng-container *ngFor="let appointmentItem of appointments; trackBy:trackByAppointmentId;">
 
-                <div class="d-flex flex-perfect-center booked" [ngClass]="enableMakeAppointment ?'red' :'green'"
+                <div class="d-flex flex-perfect-center booked" #tooltip="matTooltip"
+                  (click)="selectAppointment(appointmentItem)" [matTooltip]="appointmentItem.comment"
+                  matTooltipPosition="below" [ngClass]="{ 
+                  'red':enableMakeAppointment,
+                  'green': !enableMakeAppointment,
+                  'selected': selectedAppiontment?.id == appointmentItem?.id }"
                   [appAppointmentPosition]="[appointmentItem.timeId,appointmentItem.date,timeLists[0].fullDate]">
-                  <div class="delete w-100 h-100" *ngIf="enableDelete" (click)="deleteAppointment(appointmentItem.id)">
-                    <span class="mt-1 mr-1">
+                  <div class="delete w-100 h-100" *ngIf="enableDelete">
+                    <span class="mt-1 mr-1" (click)="deleteAppointment(appointmentItem.id)">
                       x
                     </span>
                   </div>
@@ -120,7 +125,8 @@
 </div>
 <div class="d-flex justify-content-end" *ngIf="!enableMakeAppointment">
   <div class="mx-2">
-    <button mat-raised-button class="edit-btn d-flex align-items-center pt-1" [disabled]="true">
+    <button mat-raised-button class="edit-btn d-flex align-items-center pt-1" [disabled]="!this.selectedAppiontment"
+      (click)="editAppointment()">
       <span>
         <img src="assets/images/edit.png" alt="edit">
       </span>
@@ -128,7 +134,8 @@
     </button>
   </div>
   <div class="mx-2">
-    <button mat-raised-button class=" delete-btn d-flex align-items-center pt-1" [disabled]="true">
+    <button mat-raised-button class="delete-btn d-flex align-items-center pt-1" [disabled]="!this.selectedAppiontment"
+      (click)="deleteAppointment()">
       <span>
         <img src="assets/images/delete.png" class="pt-1" alt="delete">
       </span>

@@ -7,10 +7,9 @@ import { Subject, finalize } from 'rxjs';
 import { InfoSnackBarComponent } from 'src/app/core/component/info-snack-bar/info-snack-bar.component';
 import { AppointmentsService } from 'src/app/core/service/appointments/appointments.service';
 import { environment } from 'src/environments/environment';
-import { AppointmentTimesModel, CreateAppointmentModel } from '../../model/appointment/appointment.model';
+import { AppointmentModel, AppointmentTimesModel, CreateAppointmentModel, UpdateAppointmentModel } from '../../model/appointment/appointment.model';
 import { MakeAppointmentModalComponent } from './make-appointment-modal/make-appointment-modal.component';
 import { DialogComponent } from 'src/app/core/component/dialog/dialog.component';
-import { TooltipPosition } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-time-table',
@@ -67,7 +66,7 @@ export class TimeTableComponent implements OnInit {
   appointmentTimes: AppointmentTimesModel[] = [];
   range: FormGroup;
   toolbarMenu: any;
-
+  selectedAppiontment: AppointmentModel;
 
   submitLoadingFlag = false
   firstLoad = true;
@@ -270,13 +269,20 @@ export class TimeTableComponent implements OnInit {
 
   }
 
-  deleteAppointment(id: number) {
+  deleteAppointment(appealId?: number) {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: { msg: 'ნამდვილად გსურთ ჯავშნის გაუქმება?' }
     });
 
     dialogRef.afterClosed().subscribe(res => {
       if (res === 'true') {
+        let id;
+        if (!appealId) {
+          id = this.selectedAppiontment.id
+        }
+        else {
+          id = appealId;
+        }
         this.appointmentsService.deleteAppointment(id).pipe(
           finalize(() => this.submitLoadingFlag = false)).subscribe(
             res => {
@@ -289,6 +295,43 @@ export class TimeTableComponent implements OnInit {
       }
     });
   }
+
+  editAppointment() {
+    console.log(this.selectedAppiontment);
+    if (this.selectedAppiontment) {
+      const dialogRef = this.dialog.open(MakeAppointmentModalComponent, {
+        panelClass: ['container'],
+        maxWidth: '400px',
+        maxHeight: '90vh',
+        disableClose: false,
+        autoFocus: false,
+        data: this.selectedAppiontment.comment
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res?.result) {
+          const comment = res.comment;
+          const appointmentModel: UpdateAppointmentModel = {
+            id: this.selectedAppiontment.id,
+            comment: comment
+          };
+          this.submitLoadingFlag = true;
+          this.appointmentsService.updateAppointment(appointmentModel).pipe(
+            finalize(() => this.submitLoadingFlag = false)).subscribe(
+              res => {
+                if (res.success) {
+                  this.snackbarAdapter('მოქმედება წარმატებით შესრულდა', true);
+                  this.getCalendar();
+                  this.selectedAppiontment = null;
+                }
+              }
+            )
+        }
+      });
+    }
+
+  }
+
 
 
   trackByTimeId(item: any) {
@@ -303,7 +346,14 @@ export class TimeTableComponent implements OnInit {
     return item.id;
   }
 
+  selectAppointment(appointment: AppointmentModel) {
+    if (this.selectedAppiontment && this.selectedAppiontment.id == appointment.id) {
+      this.selectedAppiontment = null;
+    } else {
+      this.selectedAppiontment = appointment;
+    }
 
+  }
 
   // tooltip event
   toolTipEvent(e: { x: number, y: number }) {

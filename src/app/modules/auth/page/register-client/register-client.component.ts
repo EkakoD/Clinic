@@ -17,7 +17,7 @@ export class RegisterClientComponent implements OnInit {
   registrationForm: FormGroup;
 
   errMessage: string;
-  submitLoadingFlag = false; 
+  submitLoadingFlag = false;
   sendCodeLoadingFlag = false;
   constructor(
     public router: Router,
@@ -88,11 +88,16 @@ export class RegisterClientComponent implements OnInit {
           this.authService.signIn(model).subscribe(
             res => {
               this.router.navigate(['/home']);
+              this.authService.authEvent$.next(true);
+
             });
         }
       });
     }
 
+  }
+  createDoctor() {
+    this.router.navigate(['/register/doctor']);
   }
 
   snackbarAdapter(msg: string, success: boolean) {
@@ -106,4 +111,5 @@ export class RegisterClientComponent implements OnInit {
     });
 
   }
+
 }

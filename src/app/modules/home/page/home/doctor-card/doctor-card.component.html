@@ -21,9 +21,11 @@
     {{ doctor.category }}
   </div>
 
-  <div class="review-stars d-flex justify-content-center" *ngIf="doctor.review > 0">
-    <img *ngFor="let item of [].constructor(doctor.review); let i = index" src="assets/images/star.png" alt="star-img"
-      class="my-2">
+  <div class="review-stars d-flex justify-content-center">
+    <ng-container *ngIf="doctor.review > 0">
+      <img *ngFor="let item of [].constructor(doctor.review); let i = index" src="assets/images/star.png" alt="star-img"
+        class="my-2">
+    </ng-container>
   </div>
 
   <button mat-raised-button *ngIf="userRole != 'Doctor'" (click)="navigateToDetail(doctor.id)"

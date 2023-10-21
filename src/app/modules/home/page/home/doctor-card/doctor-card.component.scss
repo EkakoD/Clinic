@@ -6,7 +6,7 @@
     align-items: center;
     max-width: 390px;
     border-radius: 8px;
-
+    
     .top-content {
         width: 100%;
         .viewer {
@@ -54,6 +54,7 @@
         font-size: 16px;
     }
     .review-stars {
+        height: 25px;
         img {
             width: 24px;
             height: 24px;

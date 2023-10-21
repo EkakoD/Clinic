@@ -145,6 +145,7 @@ export class RegisterDoctorComponent implements OnInit {
           this.authService.signIn(model).subscribe(
             res => {
               this.router.navigate(['/home']);
+              this.authService.authEvent$.next(true);
             });
         }
       });
@@ -152,6 +153,9 @@ export class RegisterDoctorComponent implements OnInit {
 
   }
 
+  createClient() {
+    this.router.navigate(['/register/client']);
+  }
   snackbarAdapter(msg: string, success: boolean) {
     const statusClass = success ? 'success-snackbar' : 'error-snackbar';
     this.snackBar.openFromComponent(InfoSnackBarComponent, {

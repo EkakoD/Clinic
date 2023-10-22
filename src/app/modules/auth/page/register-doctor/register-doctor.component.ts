@@ -145,7 +145,7 @@ export class RegisterDoctorComponent implements OnInit {
           this.authService.signIn(model).subscribe(
             res => {
               this.router.navigate(['/home']);
-              this.authService.authEvent$.next(true);
+              this.authService.authEvent$.next(true); //Todo: ??აქ ვერ ვხვდები რატომ არ ასაბსქრაიბებს ჰედერის კომპონენტში
             });
         }
       });

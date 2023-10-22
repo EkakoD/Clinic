@@ -88,7 +88,7 @@
                   'selected': selectedAppiontment?.id == appointmentItem?.id }"
                   [appAppointmentPosition]="[appointmentItem.timeId,appointmentItem.date,timeLists[0].fullDate]">
                   <div class="delete w-100 h-100" *ngIf="enableDelete">
-                    <span class="mt-1 mr-1" (click)="deleteAppointment(appointmentItem.id)">
+                    <span class="mt-1 mr-1">
                       x
                     </span>
                   </div>
@@ -110,7 +110,7 @@
           <div *ngFor="let time of timeLists; trackBy:trackByTimeId;">
             <div class="d-flex h-100 w-100">
 
-              <div class="time-item" (click)="makeAppoitment(item,time)">
+              <div class="time-item" (click)="enableMakeAppointment ? makeAppoitment(item,time) : null">
                 <div class="time-viewer h-100 p-1">
                 </div>
               </div>
@@ -126,8 +126,8 @@
 </div>
 <div class="d-flex justify-content-end" *ngIf="!enableMakeAppointment">
   <div class="mx-2">
-    <button mat-raised-button class="edit-btn d-flex align-items-center pt-1" [disabled]="!this.selectedAppiontment"
-      (click)="editAppointment()">
+    <button mat-raised-button class="edit-btn d-flex align-items-center pt-1"
+      [disabled]="!(this.selectedAppiontment && enableDelete)" (click)="editAppointment()">
       <span>
         <img src="assets/images/edit.png" alt="edit">
       </span>
@@ -135,8 +135,8 @@
     </button>
   </div>
   <div class="mx-2">
-    <button mat-raised-button class="delete-btn d-flex align-items-center pt-1" [disabled]="!this.selectedAppiontment"
-      (click)="deleteAppointment()">
+    <button mat-raised-button class="delete-btn d-flex align-items-center pt-1"
+      [disabled]="!(this.selectedAppiontment && enableDelete)" (click)="deleteAppointment()">
       <span>
         <img src="assets/images/delete.png" class="pt-1" alt="delete">
       </span>

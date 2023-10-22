@@ -101,11 +101,15 @@ export class TimeTableComponent implements OnInit {
           this.enableMakeAppointment = true;
 
         } else {
-          this.enableDelete = true;
+          this.enableDelete = false;
+
           this.patientId = this.id;
         }
       } else if (this.userRole == 'Doctor') {
         this.doctorId = paramId;
+        this.enableMakeAppointment = false;
+        this.enableDelete = true;
+
       }
     }
     // this.id = parseFloat(localStorage.getItem("id"));
